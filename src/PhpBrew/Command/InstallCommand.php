@@ -89,7 +89,7 @@ class InstallCommand extends Command
             if ($idx !== false) {
                 if ($requirement == '*') {
                     // Find the value next to the position
-                    list($key, $val) = array_splice($args, $idx, 2);
+                    [$key, $val] = array_splice($args, $idx, 2);
                     $settings[$key] = $val;
                 } elseif ($requirement == '*+') {
                     $values = array_splice($args, $idx, 2);
@@ -456,7 +456,7 @@ class InstallCommand extends Command
                 $addedOptions = $removedOptions = array();
 
                 foreach ($sapis as $sapiName => $sapiEnableDisable) {
-                    list($addedOptions, $removedOptions) = $this->enableDisable(
+                    [$addedOptions, $removedOptions] = $this->enableDisable(
                         $parameters,
                         $sapiEnableDisable,
                         $sapiName === $sapi,
@@ -464,9 +464,15 @@ class InstallCommand extends Command
                     );
                 }
 
-                $parameters = $parameters
-                    ->withOption('--with-config-file-path', $prefix . '/etc/' . $sapi)
-                    ->withOption('--with-config-file-scan-dir', $prefix . '/var/db/' . $sapi);
+                if (!array_key_exists('--with-config-file-path', $options)) {
+                    $parameters = $parameters
+                        ->withOption('--with-config-file-path', $prefix.'/etc/'.$sapi);
+                }
+
+                if (!array_key_exists('--with-config-file-scan-dir', $options)) {
+                    $parameters = $parameters
+                        ->withOption('--with-config-file-scan-dir', $prefix.'/var/db/'.$sapi);
+                }
 
                 $this->build($build, $parameters);
 
