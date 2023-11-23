@@ -33,6 +33,11 @@ final class ConfigureParameters
      */
     public function withOption($option, $value = null)
     {
+        if (preg_match('/^(.*?)=(.*?)$/', $option, $matches)) {
+            $option = trim($matches[1]);
+            $value = trim($matches[2]);
+        }
+
         if (array_key_exists($option, $this->options) && $this->options[$option] === $value) {
             return $this;
         }
