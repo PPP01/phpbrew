@@ -457,8 +457,12 @@ class InstallCommand extends Command
                 $sapiLabel = strtoupper($sapi);
 
                 if ($sapiCount > 1) {
+                    $this->logger->newline();
                     $this->logger->info(
-                        "===> Building SAPI [$sapiIndex/$sapiCount]: $sapiLabel"
+                        $this->formatter->format(
+                            "===> Building SAPI [$sapiIndex/$sapiCount]: $sapiLabel",
+                            'strong_white'
+                        )
                     );
                 }
 
