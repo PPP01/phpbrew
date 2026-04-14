@@ -88,16 +88,19 @@ class ExtensionManager
     public function createExtensionConfig(Extension $ext)
     {
         $ini = $ext->getConfigFilePath();
+
+        if (file_exists($ini)) {
+            $this->logger->info("===> Config file already exists: {$ini} (keeping existing)");
+
+            return true;
+        }
+
         $this->logger->info("===> Creating config file {$ini}");
 
         if (!file_exists(dirname($ini))) {
             if (!mkdir($concurrentDirectory = dirname($ini), 0755, true) && !is_dir($concurrentDirectory)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        }
-
-        if (file_exists($ini)) {
-            return true;
         }
 
         // @see https://github.com/php/php-src/commit/0def1ca59a
