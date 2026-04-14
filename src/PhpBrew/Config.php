@@ -168,11 +168,52 @@ class Config
     }
 
     /**
-     * XXX: This method should be migrated to PhpBrew\Build class.
+     * Returns the config scan directory for the current PHP build.
+     *
+     * Tries to read the actual scan dir from the PHP binary (respects
+     * custom --with-config-file-scan-dir set during build). Falls back
+     * to the default $prefix/var/db if detection fails.
      */
     public static function getCurrentPhpConfigScanPath($home = false)
     {
+        static $detectedPath = null;
+
+        if ($detectedPath === null) {
+            $detectedPath = self::detectPhpConfigScanPath();
+        }
+
+        if ($detectedPath !== false) {
+            return $detectedPath;
+        }
+
         return self::getCurrentPhpDir($home) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'db';
+    }
+
+    private static function detectPhpConfigScanPath()
+    {
+        $phpBin = self::getCurrentPhpDir() . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php';
+
+        if (!file_exists($phpBin)) {
+            return false;
+        }
+
+        $output = [];
+        $cmd = escapeshellarg($phpBin) . ' --ini 2>/dev/null';
+        exec($cmd, $output);
+
+        foreach ($output as $line) {
+            if (strpos($line, 'Scan for additional') !== false) {
+                $parts = explode(':', $line, 2);
+                if (isset($parts[1])) {
+                    $path = trim($parts[1]);
+                    if ($path !== '' && $path !== '(none)') {
+                        return $path;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public static function getCurrentPhpDir($home = false)
