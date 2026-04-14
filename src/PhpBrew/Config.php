@@ -205,8 +205,8 @@ class Config
             if (strpos($line, 'Scan for additional') !== false) {
                 $parts = explode(':', $line, 2);
                 if (isset($parts[1])) {
-                    $path = trim($parts[1]);
-                    if ($path !== '' && $path !== '(none)') {
+                    $path = trim($parts[1], " \t\n\r\0\x0B\"'");
+                    if ($path !== '' && $path !== '(none)' && $path[0] === '/') {
                         return $path;
                     }
                 }
