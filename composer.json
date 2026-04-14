@@ -28,12 +28,16 @@
         {
             "type": "vcs",
             "url": "https://github.com/PPP01/CLIFramework"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/PPP01/CurlKit"
         }
     ],
     "require": {
         "php": "^7.4 || ^8.0",
         "corneltek/pearx": "^1.3.5",
-        "corneltek/curlkit": "^1.0.11",
+        "corneltek/curlkit": "dev-master#a509e80",
         "ext-simplexml": "*",
         "symfony/yaml": "^5.4",
         "corneltek/cliframework": "3.0.x-dev#6324540"
