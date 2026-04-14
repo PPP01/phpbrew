@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2387fb57f1f7aab7f91ff9d3309dcd6d",
+    "content-hash": "15ca8b6f385272c8939ffe0714fd8bf0",
     "packages": [
         {
             "name": "corneltek/class-template",
@@ -59,12 +59,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PPP01/CLIFramework.git",
-                "reference": "78f211f"
+                "reference": "6324540"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PPP01/CLIFramework/zipball/78f211f",
-                "reference": "78f211f",
+                "url": "https://api.github.com/repos/PPP01/CLIFramework/zipball/6324540",
+                "reference": "6324540",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
             "support": {
                 "source": "https://github.com/PPP01/CLIFramework/tree/3.0"
             },
-            "time": "2026-04-14T07:48:47+00:00"
+            "time": "2026-04-14T08:00:09+00:00"
         },
         {
             "name": "corneltek/codegen",
