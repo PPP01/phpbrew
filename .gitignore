@@ -2,3 +2,12 @@
 .phpbrew
 .phpcs.cache
 /build
+
+# Claude Code — benutzerspezifische Einstellungen
+.claude/settings.local.json
+
+# Claude Code — remember-Skill (benutzerspezifische Session-Daten)
+.remember/
+
+# Claude Code — Memory (benutzerspezifisch)
+.claude/memory/

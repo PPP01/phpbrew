@@ -6,12 +6,10 @@ use PhpBrew\Extension\Provider\RepositoryDslParser;
 use PHPUnit\Framework\TestCase;
 
 /**
- * ExtensionDslParserTest
- *
  * @small
  * @group extension
  */
-class ExtensionDslParserTest extends TestCase
+class RepositoryDslParserTest extends TestCase
 {
     protected $parser;
 

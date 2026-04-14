@@ -28,14 +28,14 @@ class InstallCommandTest extends CommandTestCase
     public function testInstallCommand()
     {
         if (getenv('GITHUB_ACTIONS')) {
-            $this->markTestSkipped('Skip heavy test on Travis');
+            $this->markTestSkipped('Skip heavy test on GitHub Actions');
         }
 
         $this->assertCommandSuccess("phpbrew init");
         $this->assertCommandSuccess("phpbrew known --update");
 
         $versionName = $this->getPrimaryVersion();
-        $this->assertCommandSuccess("phpbrew install php-{$versionName} +cli+posix+intl+gd");
+        $this->assertCommandSuccess("phpbrew install php-{$versionName} +cli +posix +intl +gd");
         $this->assertListContains("php-{$versionName}");
     }
 
@@ -65,11 +65,11 @@ class InstallCommandTest extends CommandTestCase
     public function testGitHubInstallCommand()
     {
         if (getenv('GITHUB_ACTIONS')) {
-            $this->markTestSkipped('Skip heavy test on Travis');
+            $this->markTestSkipped('Skip heavy test on GitHub Actions');
         }
 
         $this->assertCommandSuccess(
-            'phpbrew --debug install --dryrun github:php/php-src@PHP-7.0 as php-7.0.0 +cli+posix'
+            'phpbrew --debug install --dryrun github:php/php-src@PHP-7.0 as php-7.0.0 +cli +posix'
         );
     }
 
@@ -80,7 +80,7 @@ class InstallCommandTest extends CommandTestCase
     public function testInstallAsCommand()
     {
         $versionName = $this->getPrimaryVersion();
-        $this->assertCommandSuccess("phpbrew install php-{$versionName} as myphp +cli+soap");
+        $this->assertCommandSuccess("phpbrew install php-{$versionName} as myphp +cli +soap");
         $this->assertListContains("myphp");
     }
 

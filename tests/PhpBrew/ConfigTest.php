@@ -15,11 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigTest extends TestCase
 {
-    /**
-     * @expectedException \Exception
-     */
     public function testGetPhpbrewHomeWhenHOMEIsNotDefined()
     {
+        $this->expectException(\Exception::class);
         $env = array(
             'PHPBREW_HOME' => null,
             'PHPBREW_ROOT' => null,

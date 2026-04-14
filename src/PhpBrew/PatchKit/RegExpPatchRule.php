@@ -12,6 +12,9 @@ class RegExpPatchRule implements PatchRule
 {
     private $files;
 
+    /** @var callable|bool */
+    private $predicator;
+
     /**
      * @var string the regexp pattern
      */
@@ -52,6 +55,8 @@ class RegExpPatchRule implements PatchRule
     {
         if (count($patterns) === 0) {
             $this->predicator = true;
+
+            return $this;
         }
         $this->predicator = function ($line) use ($patterns) {
             foreach ($patterns as $pattern) {

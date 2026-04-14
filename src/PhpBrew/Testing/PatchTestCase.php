@@ -2,11 +2,11 @@
 
 namespace PhpBrew\Testing;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-abstract class PatchTestCase extends PHPUnit_Framework_TestCase
+abstract class PatchTestCase extends TestCase
 {
     protected function setupBuildDirectory($version)
     {
@@ -67,7 +67,7 @@ abstract class PatchTestCase extends PHPUnit_Framework_TestCase
     protected function tearDown(): void
     {
         // don't clean up if the test failed.
-        if ($this->hasFailed()) {
+        if (!$this->status()->isSuccess()) {
             return;
         }
         $this->cleanupBuildDirectory();
