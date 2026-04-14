@@ -449,7 +449,19 @@ class InstallCommand extends Command
                 );
             }
 
+            $sapiCount = count($sapis);
+            $sapiIndex = 0;
+
             foreach ($sapis as $sapi => $enableDisable) {
+                $sapiIndex++;
+                $sapiLabel = strtoupper($sapi);
+
+                if ($sapiCount > 1) {
+                    $this->logger->info(
+                        "===> Building SAPI [$sapiIndex/$sapiCount]: $sapiLabel"
+                    );
+                }
+
                 $this->logger->info('Running make clean to ensure everything will be rebuilt.');
                 $clean->clean($build);
 
@@ -464,7 +476,11 @@ class InstallCommand extends Command
                     );
                 }
 
-                if (!array_key_exists('--with-config-file-path', $options)) {
+                if (array_key_exists('--with-config-file-path', $options)) {
+                    // User specified a base path – append SAPI name for per-SAPI separation
+                    $parameters = $parameters
+                        ->withOption('--with-config-file-path', $options['--with-config-file-path'].'/'.$sapi);
+                } else {
                     $parameters = $parameters
                         ->withOption('--with-config-file-path', $prefix.'/etc/'.$sapi);
                 }
@@ -473,6 +489,11 @@ class InstallCommand extends Command
                     $parameters = $parameters
                         ->withOption('--with-config-file-scan-dir', $prefix.'/var/db/'.$sapi);
                 }
+
+                $configPath = $parameters->getOptions()['--with-config-file-path'] ?? '';
+                $scanDir = $parameters->getOptions()['--with-config-file-scan-dir'] ?? '';
+                $this->logger->info("  config-file-path:     $configPath");
+                $this->logger->info("  config-file-scan-dir: $scanDir");
 
                 $this->build($build, $parameters);
 
