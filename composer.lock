@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b2d303110ad12b8b2fb59dbdae628fd",
+    "content-hash": "d41beda50541bfe829584a99c511a598",
     "packages": [
         {
             "name": "corneltek/class-template",
@@ -3062,7 +3062,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1",
+        "php": "^7.4 || ^8.0",
         "ext-simplexml": "*"
     },
     "platform-dev": {},
